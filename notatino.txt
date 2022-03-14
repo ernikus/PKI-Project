@@ -1,0 +1,22 @@
+Z rozmowy:
+musicie sobie wygenerować certfikat root-owi, który będzie podpisywać autentyczność wszystkiego co jest niżej
+musicie mieć możliwość wygenerowania CSR, czyli żądania podspisu
+musicie mieć możliwość zrevokowania certfikatu, unieważnienia go i tą liste zrevokowanych trzeba gdzieś trzymać
+
+w kontekście podpisywania certów to fajnie jak będziecie mieć root-a, jakieś dwa sub certy i pokażecie, że nie wiem podpisane jednym subem certfikat jest zaufany dla root-a, ale nie będzie zaufany dla tego drugiego suba
+takie drzewko żeby delikatnie zbudować
+czy wy musicie do tego robić interfejs? Podejrzewam że to nie będzie jakiś problem szczególnie że takie interfejsy do open SSR-a(możliwe że było SSL-a) są gotowe na githubie, możecie jakiś znaleźć i dostosować do siebie, czy tam pod siebie, to będą jakieś proste interfejsy webowe, które będą nie wiem, pobierały i oddawały pliki certyfikatów i nie wiem 2/3 buttony które będą wpięte jakąś bash-ową komendą, która będzie obsługiwała open SSL-a dla was. Możecie spróbować poszukać czegoś takiego jak znajdziecie coś takiego na szybko i sobie ograniecie jak to śmiga to możecie tego użyć spokojnie
+Natomiast cały sens zadania polega na tym żebyście pokazali że rozumiecie jak działa chain trust, jak się revokuje certyfikaty, po co to się robi i jak podpisywać certy żeby były zaufane w chain truście
+GUI możemy jakieś wykorzystać ale to nie jest jakiś wymóg 
+
+
+Moja interpretacja:
+Część główna do zrobiebia:
+wygenerowanie certyfikatu dla root-a, który podpisuje autentyczność certfikatów pod nim
+możliwość generowania CSR - żądanie podpisu
+możliwość revoke-u certfikatu oraz przetrzymywanie listy takich certyfikatów
+
+
+Dalszy opis już co z tym zrobić:
+stworzyć dwa certfikaty pod root-em i pokazać, że w jednym wypadku jest zaufany a innym już nie
+Można do tego znaleźć jakiś interfejs graficzny i pod nasz projekt dostosować. Ewentualnie jakiś interfejs webowy
