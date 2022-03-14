@@ -1,0 +1,14 @@
+Python libs:
+  ssl
+  certifi
+
+###################################
+
+openssl-wizard:
+  https://github.com/deviousasti/openssl-wizard
+
+YAOG:
+  https://github.com/patrickpr/YAOG
+
+GUI_OpenSSL:
+  https://github.com/Vasquiinho/GUI_OpenSSL
