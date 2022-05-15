@@ -1,57 +1,8 @@
-### LIBRARIES #################################################################
-
-import os
-import subprocess
-
-############################################################################
-
-directory = "tls"
-parent_dir = os.getcwd()
-path = os.path.join(parent_dir, directory)
-
-
-direccerts = "certs"
-path1 = os.path.join(path, direccerts)
-
-
-os.mkdir(path)
-os.chdir(path)
-
-directory = ['certs', 'private', 'crl']
-
-for directory in directory:
-    path2 = os.path.join(path, directory)
-    os.mkdir(path2)
-
-file = ['index.txt', 'serial', 'crlnumber', 'openssl.cnf', 'temp.pem', 'ext_template.cnf']
-
-for file in file:
-    if file == 'serial':
-        f = open(file, "a")
-        f.write("01")
-        f.close()
-    elif file == "crlnumber":
-        f = open(file, "a")
-        f.write("1000")
-        f.close()
-    elif file == "ext_template.cnf":
-        os.chdir(path1)
-        f = open(file, "a")
-        f.write("""basicConstraints = CA:FALSE
-nsCertType = client, email
-nsComment = "OpenSSL Generated Client Certificate"
-subjectKeyIdentifier = hash
-authorityKeyIdentifier = keyid,issuer
-keyUsage = critical, nonRepudiation, digitalSignature, keyEncipherment
-extendedKeyUsage = clientAuth, serverAuth""")
-        f.close()
-    elif file == "openssl.cnf":
-        f = open(file, "a")
-        f.write("""[ ca ]
+[ ca ]
 default_ca      = CA_default            # The default ca section
 
 [ CA_default ]
-dir             = """ + path + """            # Where everything is kept
+dir             = /home/ernest/Desktop/Programy - Linux/!PROJEKT/PKI-Project/PKI/tls            # Where everything is kept
 certs           = $dir/certs            # Where the issued certs are kept
 crl_dir         = $dir/crl              # Where the issued crl are kept
 database        = $dir/index.txt        # database index file.
@@ -105,7 +56,7 @@ localityName_default            = Wroclaw
 organizationalUnitName          = Organizational Unit Name (eg, section)
 organizationalUnitName_default  = Admin
 
-commonName                      = Common Name (eg, your name or your server\'s hostname)
+commonName                      = Common Name (eg, your name or your server's hostname)
 commonName_max                  = 64
 
 emailAddress                    = Email Address
@@ -132,8 +83,4 @@ basicConstraints = critical,CA:true
 [ crl_ext ]
 # CRL extensions.
 # Only issuerAltName and authorityKeyIdentifier make any sense in a CRL.
-authorityKeyIdentifier=keyid:always""")
-        f.close()
-    else:
-        f = open(file, "a")
-        f.close()
+authorityKeyIdentifier=keyid:always

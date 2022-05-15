@@ -1,6 +1,12 @@
+### LIBRARIES #################################################################
+
 import os
 import subprocess
 from os.path import isfile, join
+
+############################################################################
+
+### CREATE #################################################################
 
 def create():
 	print("Stworz wlasny rootCA")
@@ -12,6 +18,9 @@ def create():
 	proces = subprocess.call("openssl req -new -x509 -days 3650 -config openssl.cnf -key private/cakey.pem -out certs/cacert.pem", stdout=subprocess.PIPE ,shell=True, text=True)
 	proces = subprocess.call("openssl x509 -noout -text -in certs/cacert.pem", stdout=subprocess.PIPE ,shell=True, text=True)
 	os.chdir(path)
+
+
+### OWN CERT #################################################################
 
 def owncert():
 	directory = "tls/certs"
@@ -25,6 +34,9 @@ def owncert():
 	proces = subprocess.call(command, stdout=subprocess.PIPE ,shell=True, text=True)
 	os.chdir(path)
 
+
+### KEYS #################################################################
+
 def keys():
 	print("Twoje klucze: \n")
 	directory = "tls/certs"
@@ -36,12 +48,17 @@ def keys():
 		print(file)
 
 
+### LOC KEYS #################################################################
+
 def loc_keys():
 	print("Lokalizacja kluczy:")
 	directory = "tls/certs"
 	path = os.getcwd()
 	path = os.path.join(path, directory)
 	print(path)
+
+
+### DODAJ #################################################################
 
 def dodaj():
 	print("Dodaje plik klucza")
@@ -58,8 +75,11 @@ def dodaj():
 		else:
 			print('Istnieje juz cert o takiej nazwie!')
 	else:
-		print("Nieprawidlowa scierzka pliku")
+		# 'scierzka' XDDD
+		print("Nieprawidlowa sciezka pliku")
 
+
+### CSR #################################################################
 
 def CSR():
 	print("Generuje CSR")
@@ -74,6 +94,9 @@ def CSR():
 	command = ' '.join([str(elem) for elem in command])
 	proces = subprocess.call(command, stdout=subprocess.PIPE ,shell=True, text=True)
 	os.chdir(path)
+
+
+### REVOKE #################################################################
 
 def revoke():
 	print("Revoke podanego klucza")
@@ -92,6 +115,9 @@ def revoke():
 	proces = subprocess.call(command, stdout=subprocess.PIPE ,shell=True, text=True)
 	#print(command)
 
+
+### REVOKED KEYS #################################################################
+
 def revoked_keys():
 	print('revoked_keys')
 	path = os.getcwd()
@@ -105,6 +131,8 @@ def revoked_keys():
 	else:
 		print('Nie ma pliku lub zaden cert nie zostal zrevokowany')
 
+
+### CHECK KEY #################################################################
 
 def check_key():
 	print('check_key')
@@ -125,6 +153,9 @@ def check_key():
 	print (wynik)
 	#print(command)
 
+
+### SIGN #################################################################
+
 def sign():
 	print(os.getcwd())
 	print("Podpisuje certyfikat(?)")
@@ -144,6 +175,9 @@ def sign():
 	command = ' '.join([str(elem) for elem in command])
 	proces = subprocess.call(command, stdout=subprocess.PIPE ,shell=True, text=True)
 	os.chdir(path1)
+
+
+### MAIN MENU #################################################################
 
 while(True):
 
@@ -179,32 +213,43 @@ while(True):
 	''')
 	#operation = ""
 	#while(operation == ""):
+
+
 	operation = input("Co chcesz zrobic?: ")
 
+
 	if operation == 'create':
-		create();
+		create()
+
 	elif operation == 'owncert':
-		owncert();
+		owncert()
+
 	elif operation == 'keys':
-		keys();
+		keys()
+
 	elif operation == 'loc_keys':
-		loc_keys();
+		loc_keys()
+
 	elif operation == 'dodaj':
-		dodaj();
+		dodaj()
+
 	elif operation == 'CSR':
-		CSR();
+		CSR()
+
 	elif operation == 'revoke':
-		revoke();
+		revoke()
+
 	elif operation == 'revoked_keys':
-		revoked_keys();
+		revoked_keys()
+
 	elif operation == 'check_key':
-		check_key();
+		check_key()
+
 	elif operation == 'sign':
-		sign();
+		sign()
+
 	elif operation == 'exit':
-		break;
-
-
+		break
 
 
 #cmd = 'ls -l'
