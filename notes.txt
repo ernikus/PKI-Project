@@ -31,3 +31,12 @@ Self Signed Certificate with Custom Root CA:
   
  Generating a self-signed certificate using OpenSSL:
     https://www.ibm.com/docs/en/api-connect/2018.x?topic=overview-generating-self-signed-certificate-using-openssl
+
+Elliptic Curve certificate
+    https://dev.to/benjaminblack/obtaining-an-elliptic-curve-dsa-certificate-with-lets-encrypt-51bc
+    
+#######################################################################
+##          For better understanding or to have revoke list          ##
+#######################################################################
+
+    https://www.golinuxcloud.com/revoke-certificate-generate-crl-openssl/
