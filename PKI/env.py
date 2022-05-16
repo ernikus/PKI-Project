@@ -5,6 +5,7 @@ import subprocess
 
 ############################################################################
 
+# create "tls" folder
 directory = "tls"
 parent_dir = os.getcwd()
 path = os.path.join(parent_dir, directory)
@@ -17,6 +18,9 @@ path1 = os.path.join(path, direccerts)
 os.mkdir(path)
 os.chdir(path)
 
+# certs -   public certificates
+# private - private certtficates
+# crf -     revoked certtficates
 directory = ['certs', 'private', 'crl']
 
 for directory in directory:

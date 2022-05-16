@@ -9,41 +9,56 @@ from os.path import isfile, join
 ### CREATE #################################################################
 
 def create():
-	print("Stworz wlasny rootCA")
+	print("Create rootCA")
+
+	# go to dir location
 	directory = "tls"
 	path = os.getcwd()
 	path1 = os.path.join(path, directory)
 	os.chdir(path1)
+
 	proces = subprocess.call("openssl genrsa -out private/cakey.pem 4096", stdout=subprocess.PIPE ,shell=True, text=True)
 	proces = subprocess.call("openssl req -new -x509 -days 3650 -config openssl.cnf -key private/cakey.pem -out certs/cacert.pem", stdout=subprocess.PIPE ,shell=True, text=True)
 	proces = subprocess.call("openssl x509 -noout -text -in certs/cacert.pem", stdout=subprocess.PIPE ,shell=True, text=True)
+	
 	os.chdir(path)
 
 
 ### OWN CERT #################################################################
 
 def owncert():
+
+	# go to dir location
 	directory = "tls/certs"
 	path = os.getcwd()
 	path1 = os.path.join(path, directory)
 	os.chdir(path1)
+
+
 	name = input("Podaj nazwe serwera: ")
 	name = name + ".pem"
 	command = ['openssl genrsa -out', name, '4096']
 	command = ' '.join([str(elem) for elem in command])
 	proces = subprocess.call(command, stdout=subprocess.PIPE ,shell=True, text=True)
+
 	os.chdir(path)
 
 
 ### KEYS #################################################################
 
 def keys():
-	print("Twoje klucze: \n")
+
+	print("Keys of Yours: \n")
+
+	# go to dir location
 	directory = "tls/certs"
 	path = os.getcwd()
 	path = os.path.join(path, directory)
 
+	# get certs names
 	onlyfiles = [f for f in os.listdir(path) if isfile(join(path, f)) if f.endswith(('.crt', '.pem'))]
+
+	# print all certs names
 	for file in onlyfiles:
 		print(file)
 
@@ -51,7 +66,10 @@ def keys():
 ### LOC KEYS #################################################################
 
 def loc_keys():
-	print("Lokalizacja kluczy:")
+
+	print("Keys Localisation:")
+
+	# go to dir location
 	directory = "tls/certs"
 	path = os.getcwd()
 	path = os.path.join(path, directory)
@@ -62,7 +80,9 @@ def loc_keys():
 
 def dodaj():
 	print("Dodaje plik klucza")
+
 	name = input("Podaj scierzke pliku: ")
+
 	if isfile(name):
 		name1 = input("Podaj nazwe pod jaka chcesz wyswietlac klucz: ")
 		path1 = os.getcwd() + '/tls/certs/' + name1 + '.crt'
@@ -75,18 +95,22 @@ def dodaj():
 		else:
 			print('Istnieje juz cert o takiej nazwie!')
 	else:
-		# 'scierzka' XDDD
 		print("Nieprawidlowa sciezka pliku")
 
 
 ### CSR #################################################################
 
 def CSR():
-	print("Generuje CSR")
+
+	print("Generate Sign Request")
+
+	# go to dir location
 	directory = "tls/certs"
 	path = os.getcwd()
 	path1 = os.path.join(path, directory)
 	os.chdir(path1)
+
+
 	name = input("Podaj nazwe serwera: ")
 	name1 = name + ".pem"
 	name2 = name + ".csr"
@@ -99,8 +123,14 @@ def CSR():
 ### REVOKE #################################################################
 
 def revoke():
+
+	# print all certs
+	keys()
+
 	print("Revoke podanego klucza")
+
 	path = os.getcwd()
+
 	name = input("Podaj nazwe klucza ktory chcesz revokowac: ")
 	name1 = name + ".crt"
 	path1 = path + '/tls/' +'openssl.cnf'
@@ -119,9 +149,12 @@ def revoke():
 ### REVOKED KEYS #################################################################
 
 def revoked_keys():
+
 	print('revoked_keys')
+
 	path = os.getcwd()
 	path1 = path + '/tls/crl/rootca.crl'
+
 	if isfile(path1):
 		command = ['openssl crl -in', path1, '-text -noout']
 		command = ' '.join([str(elem) for elem in command])
@@ -135,7 +168,9 @@ def revoked_keys():
 ### CHECK KEY #################################################################
 
 def check_key():
+
 	print('check_key')
+
 	path = os.getcwd()
 	name = input('Podaj nazwe klucza: ')
 	path0 = path + '/tls/certs/cacert.pem'
@@ -157,7 +192,9 @@ def check_key():
 ### SIGN #################################################################
 
 def sign():
+
 	print(os.getcwd())
+	
 	print("Podpisuje certyfikat(?)")
 	directory = "tls/certs"
 	path1 = os.getcwd()
@@ -178,6 +215,9 @@ def sign():
 
 
 ### MAIN MENU #################################################################
+
+# TO DO: main menu in english, with number choose
+# TO DO: while loop only for choose, main menu as function, show only once after cert execute
 
 while(True):
 
